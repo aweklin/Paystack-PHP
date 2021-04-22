@@ -1,0 +1,25 @@
+<?php
+
+define('TEST_API_SECRETE_KEY', '');
+define('LIVE_API_SECRETE_KEY', '');
+
+define('VALID_PAYMENT_REFERENCE', '');
+define('VALID_EMAIL', '');
+define('VALID_PHONE', '');
+define('VALID_AMOUNT', 1000);
+define('VALID_ACCOUNT_NUMBER', '');
+define('VALID_BANK_CODE', '');
+define('VALID_BVN', '');
+define('VALID_BANK_CODE_FOR_BVN_VERIFICATION', '');
+define('VALID_AUTHORIZATION_CODE', '');
+define('VALID_TRANSACTION_ID', '');
+define('VALID_BENEFICIARY_ID', '');
+define('VALID_BENEFICIARY_CODE', '');
+define('VALID_ACCOUNT_NAME', '');
+
+define('INVALID_BVN', '12345678912');
+define('INVALID_BANK_CODE_FOR_BVN_VERIFICATION', '087');
+define('INVALID_ACCOUNT_NUMBER', '0000000000');
+define('INVALID_AUTHORIZATION_CODE', '1234');
+define('INVALID_TRANSACTION_ID', '0000');
+define('INVALID_BENEFICIARY_ID', '0000');
