@@ -82,28 +82,25 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>
     First, include the autoload file where you want to use it<br>
-    <blockquote>
-      <code>
-        include_once 'path_to_klin_paystack/autoload.php';
-      </code>
-    </blockquote>
   </p>
+  <code>
+      include_once 'path_to_klin_paystack/autoload.php';
+  </code>
+
   <p>
     Then, reference the namespace at the top of the file<br>
-    <blockquote>
-      <code>
-        use Aweklin\Paystack\Paystack;
-      </code>
-    </blockquote>
+    
   </p>
+  <code>
+    use Aweklin\Paystack\Paystack;
+  </code>
+    
   <p>
     Next, initialize the API with your secrete key
-    <blockquote>
-      <code>
-        Paystack::initialize('your_api_secrete_key_here');
-      </code>
-    </blockquote>
-  </p>  
+  </p>
+  <code>
+    Paystack::initialize('your_api_secrete_key_here');
+  </code>
 
   <h3 style="text-decoration: underline; color: red;"><strong>Important Notes:</strong></h3>
   <p>Note that every requests made returns a uniform response</p>
@@ -128,59 +125,66 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>To list all your transactions, invoke</p>
   
-  <blockquote>
-    <code>
-      $transactionList = Paystack::getTransactions();<br>
-      if ($transactionList->hasError()) {<br>
-        &nbsp;&nbsp;echo $transactionList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transactionList->getData());<br>
-      }
-    </code>
-  </blockquote>
+  <code>
+
+    $transactionList = Paystack::getTransactions();
+
+    if ($transactionList->hasError()) {
+
+      echo $transactionList->getMessage();
+
+    } else {
+
+      var_dump ($transactionList->getData());        
+    }
+
+  </code>
+  
   
   <p>Or, specify the page number and page size</p>
 
-  <blockquote>
-    <code>
-      $transactionList = Paystack::getTransactions($pageNumber, $pageSize);<br>
-      if ($transactionList->hasError()) {<br>
-        &nbsp;&nbsp;echo $transactionList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transactionList->getData());<br>
+  
+  <code>
+      
+      $transactionList = Paystack::getTransactions($pageNumber, $pageSize);
+      if ($transactionList->hasError()) {
+        echo $transactionList->getMessage();
+      } else {
+        var_dump ($transactionList->getData());
       }
-    </code>
-  </blockquote>
+  </code>
+  
   
   <p>&nbsp;</p>
   
   <p>To list all your transactions by status, invoke</p>
   
-  <blockquote>
-    <code>
-      $transactionList = Paystack::getTransactions($status);
-      <br>
-      if ($transactionList->hasError()) {<br>
-        &nbsp;&nbsp;echo $transactionList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transactionList->getData());<br>
+  
+  <code>
+
+      $transactionList = Paystack::getTransactions($status);      
+      if ($transactionList->hasError()) {
+        echo $transactionList->getMessage();
+      } else {
+        var_dump ($transactionList->getData());
       }
-      </code>
-  </blockquote>
+  </code>
+  
 
   <p>Or, specify page number and page size</p>
   
-  <blockquote>
-    <code>
+  
+  <code>
+
       $transactionList = Paystack::getTransactions($status, $pageNumber, $pageSize);
       <br>
-      if ($transactionList->hasError()) {<br>
-        &nbsp;&nbsp;echo $transactionList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transactionList->getData());<br>
+      if ($transactionList->hasError()) {
+        echo $transactionList->getMessage();
+      } else {
+        var_dump ($transactionList->getData());
       }
-      </code>
-  </blockquote>
+  </code>
+  
  
   <p>$status can be one of <code>Transaction::STATUS_SUCCESS</code>, <code>Transaction::STATUS_FAILED</code>, or <code>Transaction::STATUS_ABANDONED</code></p>
 
@@ -188,40 +192,39 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>To list all your transactions by date range, invoke</p>
   
-  <blockquote>
-    <code>
+  
+  <code>
+
       $transactionList = Paystack::getTransactions($startDate, $endDate);
       <br>
-      if ($transactionList->hasError()) {<br>
-        &nbsp;&nbsp;echo $transactionList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transactionList->getData());<br>
+      if ($transactionList->hasError()) {
+        echo $transactionList->getMessage();
+      } else {
+        var_dump ($transactionList->getData());
       }
-      </code>
-  </blockquote>
+  </code>
+  
   
   <p><strong>Date format: yyyy-MM-dd, example: '2020-09-25'</strong></p>
   <p>&nbsp;</p>
   
   <p>To list all your transactions by by other parameter(s), invoke</p>
   
-  <blockquote>
-    <code>
-      $transactionParameter = new TransactionParameter();
-      <br><br>
+  <code>
+      
+      $transactionParameter = new TransactionParameter();      
       $transactionParameter<br>
             &nbsp;&nbsp;&nbsp;->setCustomerId(111222333)<br>
             &nbsp;&nbsp;&nbsp;->setStatus(Transaction::STATUS_SUCCESS)<br>
             &nbsp;&nbsp;&nbsp;->setAmount(1000)<br>
-            &nbsp;&nbsp;&nbsp;->setCurrency(Paystack::CURRENCY_NGN);<br><br>
-      $transactionList = Paystack::getTransactions($transactionParameter);<br>
-      if ($transactionList->hasError()) {<br>
-        &nbsp;&nbsp;echo $transactionList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transactionList->getData());<br>
+            &nbsp;&nbsp;&nbsp;->setCurrency(Paystack::CURRENCY_NGN);<br>
+      $transactionList = Paystack::getTransactions($transactionParameter);
+      if ($transactionList->hasError()) {
+        echo $transactionList->getMessage();
+      } else {
+        var_dump ($transactionList->getData());
       }
-    </code>
-  </blockquote>
+  </code>
 
   <br>
   
@@ -245,17 +248,17 @@ git clone https://github.com/aweklin/Paystack-PHP
     Allows you to carry out a mobile money transaction based on available providers.
   </p>
   <p>Example</p>
-  <blockquote>
-    <code>
-      $mobileMoney = new MobileMoneyPayment('email@domain.com', 5000, 'NGN', '07020000000', 'Airtel');<br>
-      $chargeResult = Paystack::initiateTransaction($mobileMoney);<br>
-      if ($chargeResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $chargeResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($chargeResult->getData());<br>
+  
+  <code>
+      $mobileMoney = new MobileMoneyPayment('email@domain.com', 5000, 'NGN', '07020000000', 'Airtel');
+      $chargeResult = Paystack::initiateTransaction($mobileMoney);
+      if ($chargeResult->hasError()) {
+        echo $chargeResult->getMessage();
+      } else {
+        var_dump ($chargeResult->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3>Initiating bank payment</h3>
@@ -263,17 +266,17 @@ git clone https://github.com/aweklin/Paystack-PHP
     Allows you to carry out a bank transaction either via USSD or by transfer.
   </p>
   <p>Example</p>
-  <blockquote>
-    <code>
-      $bankPayment = new BankPayment('email@domain.com', 5000, '058', VALID_ACCOUNT_NUMBER);<br>
-      $chargeResult = Paystack::initiateTransaction($bankPayment);<br>
-      if ($chargeResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $chargeResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($chargeResult->getData());<br>
+  
+  <code>
+      $bankPayment = new BankPayment('email@domain.com', 5000, '058', VALID_ACCOUNT_NUMBER);
+      $chargeResult = Paystack::initiateTransaction($bankPayment);
+      if ($chargeResult->hasError()) {
+        echo $chargeResult->getMessage();
+      } else {
+        var_dump ($chargeResult->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3>Initiating USSD payment</h3>
@@ -286,17 +289,17 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>Example</p>
   
-  <blockquote>
-    <code>
-      $ussdPayment = new USSDPayment(VALID_EMAIL, VALID_AMOUNT, USSDPayment::BANK_GUARANTEE_TRUST);<br>
-      $chargeResult = Paystack::initiateTransaction($ussdPayment);<br>
-      if ($chargeResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $chargeResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($chargeResult->getData());<br>
+  
+  <code>
+      $ussdPayment = new USSDPayment(VALID_EMAIL, VALID_AMOUNT, USSDPayment::BANK_GUARANTEE_TRUST);
+      $chargeResult = Paystack::initiateTransaction($ussdPayment);
+      if ($chargeResult->hasError()) {
+        echo $chargeResult->getMessage();
+      } else {
+        var_dump ($chargeResult->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   
@@ -309,17 +312,17 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>Example</p>
   
-  <blockquote>
-    <code>
-      $qrCodePayment = new QRCodePayment(VALID_EMAIL, VALID_AMOUNT, QRCodePayment::PROVIDER_VISA);<br>
-      $chargeResult = Paystack::initiateTransaction($qrCodePayment);<br>
-      if ($chargeResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $chargeResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($chargeResult->getData());<br>
+  
+  <code>
+      $qrCodePayment = new QRCodePayment(VALID_EMAIL, VALID_AMOUNT, QRCodePayment::PROVIDER_VISA);
+      $chargeResult = Paystack::initiateTransaction($qrCodePayment);
+      if ($chargeResult->hasError()) {
+        echo $chargeResult->getMessage();
+      } else {
+        var_dump ($chargeResult->getData());
       }
     </code>
-  </blockquote>
+  
   
   <p>&nbsp;</p>
   <h3>Initiating a recurring payment</h3>
@@ -330,47 +333,47 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>Example</p>
   
-  <blockquote>
-    <code>
-      $recurringPayment = new RecurringPayment(VALID_EMAIL, VALID_AMOUNT, VALID_AUTHORIZATION_CODE);<br>
-      $chargeResult = Paystack::initiateTransaction($recurringPayment);<br>
-      if ($chargeResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $chargeResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($chargeResult->getData());<br>
+  
+  <code>
+      $recurringPayment = new RecurringPayment(VALID_EMAIL, VALID_AMOUNT, VALID_AUTHORIZATION_CODE);
+      $chargeResult = Paystack::initiateTransaction($recurringPayment);
+      if ($chargeResult->hasError()) {
+        echo $chargeResult->getMessage();
+      } else {
+        var_dump ($chargeResult->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Completing transaction with OTP</h3>
   <p>Concludes a payment process initiated via bank payment method.</p>
   <p>Example</p>
-  <blockquote>
-    <code>
-      $chargeResult = Paystack::completeTransactionWithOTP($reference, $otp);<br>
-      if ($chargeResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $chargeResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($chargeResult->getData());<br>
+  
+  <code>
+      $chargeResult = Paystack::completeTransactionWithOTP($reference, $otp);
+      if ($chargeResult->hasError()) {
+        echo $chargeResult->getMessage();
+      } else {
+        var_dump ($chargeResult->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Transaction verification</h3>
   <p>To verify a transaction, you need to first obtain a transaction reference to be used for the check.</p>
   <p>Example</p>
-  <blockquote>
-    <code>
-      $verificationResult = Paystack::verifyTransaction('abcd');<br>
-      if ($verificationResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $verificationResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($verificationResult->getData());<br>
+  
+  <code>
+      $verificationResult = Paystack::verifyTransaction('abcd');
+      if ($verificationResult->hasError()) {
+        echo $verificationResult->getMessage();
+      } else {
+        var_dump ($verificationResult->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
 </div>
 
@@ -380,74 +383,74 @@ git clone https://github.com/aweklin/Paystack-PHP
 
   <h3 style="text-decoration: underline;">Initiating a refund for a given transaction reference.<h3>
   <p>Example</p>
-  <blockquote>
-    <code>
-      $refundResult = Paystack::initiateRefund($reference);<br>
-      if ($refundResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $refundResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($refundResult->getData());<br>
+  
+  <code>
+      $refundResult = Paystack::initiateRefund($reference);
+      if ($refundResult->hasError()) {
+        echo $refundResult->getMessage();
+      } else {
+        var_dump ($refundResult->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Checking refund status</h3>
   <p>It may take up to 24 hours for your refund to be concluded. To check if your refund was successful, invoke</p>
-  <blockquote>
-    <code>
-      $refundCheck = Paystack::getRefund($reference);<br>
-      if ($refundCheck->hasError()) {<br>
-        &nbsp;&nbsp;echo $refundCheck->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($refundCheck->getData());<br>
+  
+  <code>
+      $refundCheck = Paystack::getRefund($reference);
+      if ($refundCheck->hasError()) {
+        echo $refundCheck->getMessage();
+      } else {
+        var_dump ($refundCheck->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Listing your refunds</h3>
   <p>Return all refunds from inception till date.</p>
-  <blockquote>
-    <code>
-      $refundList = Paystack::getRefunds();<br>
-      if ($refundList->hasError()) {<br>
-        &nbsp;&nbsp;echo $refundList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($refundList->getData());<br>
+  
+  <code>
+      $refundList = Paystack::getRefunds();
+      if ($refundList->hasError()) {
+        echo $refundList->getMessage();
+      } else {
+        var_dump ($refundList->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Listing your refunds by date range</h3>
   <p></p>
-  <blockquote>
-    <code>
-      $refundList = Paystack::getRefundsByDates($startDate, $endDate);<br>
-      if ($refundList->hasError()) {<br>
-        &nbsp;&nbsp;echo $refundList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($refundList->getData());<br>
+  
+  <code>
+      $refundList = Paystack::getRefundsByDates($startDate, $endDate);
+      if ($refundList->hasError()) {
+        echo $refundList->getMessage();
+      } else {
+        var_dump ($refundList->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Listing your refunds by other parameters</h3>
   
-  <blockquote>
-    <code>
-      $transactionParameter = new RefundParameter();<br>
+  
+  <code>
+      $transactionParameter = new RefundParameter();
       $transactionParameter->setCurrency(Paystack::CURRENCY_NGN);
-      $refundList = Paystack::getRefundsBy($transactionParameter);<br>
-      if ($refundList->hasError()) {<br>
-        &nbsp;&nbsp;echo $refundList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($refundList->getData());<br>
+      $refundList = Paystack::getRefundsBy($transactionParameter);
+      if ($refundList->hasError()) {
+        echo $refundList->getMessage();
+      } else {
+        var_dump ($refundList->getData());
       }
     </code>
-  </blockquote>
+  
 </div>
 
 <div id="transfers">
@@ -465,16 +468,16 @@ git clone https://github.com/aweklin/Paystack-PHP
   <p>Please note that the beneficiary must have been previously added to your beneficiary list, please refer to Misc section.</p>
 
   <p>Example</p>
-  <blockquote>
-    <code>
-      $transferResult = Paystack::initiateTransferToBeneficiary(VALID_BENEFICIARY_CODE, VALID_AMOUNT, 'reference', Paystack::CURRENCY_NGN, 'Testing transfer.');<br>
-      if ($transferResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferResult->getData());<br>
+  
+  <code>
+      $transferResult = Paystack::initiateTransferToBeneficiary(VALID_BENEFICIARY_CODE, VALID_AMOUNT, 'reference', Paystack::CURRENCY_NGN, 'Testing transfer.');
+      if ($transferResult->hasError()) {
+        echo $transferResult->getMessage();
+      } else {
+        var_dump ($transferResult->getData());
       }
     </code>
-  </blockquote>
+  
   
   <br>
 
@@ -495,16 +498,16 @@ git clone https://github.com/aweklin/Paystack-PHP
   </p>
 
   <p>Example</p>
-  <blockquote>
-    <code>
-      $transferResult = Paystack::initiateTransferToAccount($accountNumber, $accountName, $bankCode, $amount, $reference, $currency, $remark);<br>
-      if ($transferResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferResult->getData());<br>
+  
+  <code>
+      $transferResult = Paystack::initiateTransferToAccount($accountNumber, $accountName, $bankCode, $amount, $reference, $currency, $remark);
+      if ($transferResult->hasError()) {
+        echo $transferResult->getMessage();
+      } else {
+        var_dump ($transferResult->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>
     * @param string $accountNumber Receiver's account number.
@@ -527,16 +530,16 @@ git clone https://github.com/aweklin/Paystack-PHP
   </p>
 
   <p>Example</p>
-  <blockquote>
-    <code>
-      $transferResult = Paystack::initiateBulkTransfers($transfers, $currency);<br>
-      if ($transferResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferResult->getData());<br>
+  
+  <code>
+      $transferResult = Paystack::initiateBulkTransfers($transfers, $currency);
+      if ($transferResult->hasError()) {
+        echo $transferResult->getMessage();
+      } else {
+        var_dump ($transferResult->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <p>
@@ -550,16 +553,16 @@ git clone https://github.com/aweklin/Paystack-PHP
   </p>
 
   <p>Example</p>
-  <blockquote>
-    <code>
-      $transferResult = Paystack::completeTransferWithOTP($transferCode, $otp);<br>
-      if ($transferResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferResult->getData());<br>
+  
+  <code>
+      $transferResult = Paystack::completeTransferWithOTP($transferCode, $otp);
+      if ($transferResult->hasError()) {
+        echo $transferResult->getMessage();
+      } else {
+        var_dump ($transferResult->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Resend transfer OTP</h3>
@@ -568,16 +571,16 @@ git clone https://github.com/aweklin/Paystack-PHP
   </p>
 
   <p>Example</p>
-  <blockquote>
-    <code>
-      $transferResult = Paystack::resendTransferOTP($transferCode);<br>
-      if ($transferResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferResult->getData());<br>
+  
+  <code>
+      $transferResult = Paystack::resendTransferOTP($transferCode);
+      if ($transferResult->hasError()) {
+        echo $transferResult->getMessage();
+      } else {
+        var_dump ($transferResult->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Disable transfer OTP</h3>
@@ -588,16 +591,16 @@ git clone https://github.com/aweklin/Paystack-PHP
   </p>
 
   <p>Example</p>
-  <blockquote>
-    <code>
-      $transferResult = Paystack::disableOTP();<br>
-      if ($transferResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferResult->getData());<br>
+  
+  <code>
+      $transferResult = Paystack::disableOTP();
+      if ($transferResult->hasError()) {
+        echo $transferResult->getMessage();
+      } else {
+        var_dump ($transferResult->getData());
       }
     </code>
-  </blockquote>
+  
   
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Complete disable transfer OTP</h3>
@@ -606,16 +609,16 @@ git clone https://github.com/aweklin/Paystack-PHP
   </p>
 
   <p>Example</p>
-  <blockquote>
-    <code>
-      $transferResult = Paystack::finalizeDisableOTP($otp);<br>
-      if ($transferResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferResult->getData());<br>
+  
+  <code>
+      $transferResult = Paystack::finalizeDisableOTP($otp);
+      if ($transferResult->hasError()) {
+        echo $transferResult->getMessage();
+      } else {
+        var_dump ($transferResult->getData());
       }
     </code>
-  </blockquote>
+  
   
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Enable transfer OTP</h3>
@@ -624,16 +627,16 @@ git clone https://github.com/aweklin/Paystack-PHP
   </p>
 
   <p>Example</p>
-  <blockquote>
-    <code>
-      $transferResult = Paystack::enableOTP();<br>
-      if ($transferResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferResult->getData());<br>
+  
+  <code>
+      $transferResult = Paystack::enableOTP();
+      if ($transferResult->hasError()) {
+        echo $transferResult->getMessage();
+      } else {
+        var_dump ($transferResult->getData());
       }
     </code>
-  </blockquote>
+  
 </div>
 <div id="others">
 
@@ -644,45 +647,45 @@ git clone https://github.com/aweklin/Paystack-PHP
   <h3 style="text-decoration: underline;">Listing your transfers</h3>
   <p>Return all transfers from inception till date.</p>
   
-  <blockquote>
-    <code>
-      $transferList = Paystack::getTransfers();<br>
-      if ($transferList->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferList->getData());<br>
+  
+  <code>
+      $transferList = Paystack::getTransfers();
+      if ($transferList->hasError()) {
+        echo $transferList->getMessage();
+      } else {
+        var_dump ($transferList->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   
   <h3 style="text-decoration: underline;">Listing your transfers by date range</h3>
   
-  <blockquote>
-    <code>
-      $transferList = Paystack::getTransfersByDates($startDate, $endDate);<br>
-      if ($transferList->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferList->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferList->getData());<br>
+  
+  <code>
+      $transferList = Paystack::getTransfersByDates($startDate, $endDate);
+      if ($transferList->hasError()) {
+        echo $transferList->getMessage();
+      } else {
+        var_dump ($transferList->getData());
       }
     </code>
-  </blockquote>
+  
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Get details of a transfer</h3>
   
-  <blockquote>
-    <code>
-      $transferDetails = Paystack::getTransfer($id);<br>
-      if ($transferDetails->hasError()) {<br>
-        &nbsp;&nbsp;echo $transferDetails->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($transferDetails->getData());<br>
+  
+  <code>
+      $transferDetails = Paystack::getTransfer($id);
+      if ($transferDetails->hasError()) {
+        echo $transferDetails->getMessage();
+      } else {
+        var_dump ($transferDetails->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
 </div>
 
@@ -691,96 +694,96 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <h3 style="text-decoration: underline;">Get account balance</h3>
   
-  <blockquote>
-    <code>
-      $result = Paystack::getBalance();<br>
-      if ($result->hasError()) {<br>
-        &nbsp;&nbsp;echo $result->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($result->getData());<br>
+  
+  <code>
+      $result = Paystack::getBalance();
+      if ($result->hasError()) {
+        echo $result->getMessage();
+      } else {
+        var_dump ($result->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
   
   <h3 style="text-decoration: underline;">Get list of banks</h3>
   
   <p>Get a list of all Nigerian banks and their properties</p>
 
-  <blockquote>
-    <code>
-      $result = Paystack::getBanks();<br>
-      if ($result->hasError()) {<br>
-        &nbsp;&nbsp;echo $result->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($result->getData());<br>
+  
+  <code>
+      $result = Paystack::getBanks();
+      if ($result->hasError()) {
+        echo $result->getMessage();
+      } else {
+        var_dump ($result->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
   
   <h3 style="text-decoration: underline;">Get providers</h3>
 
   <p>Get a list of all providers for Dedicated NUBAN</p>
 
-  <blockquote>
-    <code>
-      $result = Paystack::getProviders();<br>
-      if ($result->hasError()) {<br>
-        &nbsp;&nbsp;echo $result->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($result->getData());<br>
+  
+  <code>
+      $result = Paystack::getProviders();
+      if ($result->hasError()) {
+        echo $result->getMessage();
+      } else {
+        var_dump ($result->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
   
   <h3 style="text-decoration: underline;">Validate BVN</h3>
   
   <p>Validates the given Bank Verification Number, BVN against the account number and bank code provided.</p>
 
-  <blockquote>
-    <code>
-      $result = Paystack::verifyBVN(VALID_BVN, VALID_BANK_CODE_FOR_BVN_VERIFICATION, VALID_ACCOUNT_NUMBER);<br>
-      if ($result->hasError()) {<br>
-        &nbsp;&nbsp;echo $result->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($result->getData());<br>
+  
+  <code>
+      $result = Paystack::verifyBVN(VALID_BVN, VALID_BANK_CODE_FOR_BVN_VERIFICATION, VALID_ACCOUNT_NUMBER);
+      if ($result->hasError()) {
+        echo $result->getMessage();
+      } else {
+        var_dump ($result->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
   
   <h3 style="text-decoration: underline;">Get account balance.</h3>
   
   <p>Get a customer's information by using the Bank Verification Number.</p>
 
-  <blockquote>
-    <code>
-      $result = Paystack::getBVNDetails($bvn);<br>
-      if ($result->hasError()) {<br>
-        &nbsp;&nbsp;echo $result->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($result->getData());<br>
+  
+  <code>
+      $result = Paystack::getBVNDetails($bvn);
+      if ($result->hasError()) {
+        echo $result->getMessage();
+      } else {
+        var_dump ($result->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
   
   <h3 style="text-decoration: underline;">Get account balance.</h3>
   
   <p>Confirm an account belongs to the right customer.</p>
 
-  <blockquote>
-    <code>
-      $result = Paystack::getAccountDetails(string $accountNumber, string $bankCode);<br>
-      if ($result->hasError()) {<br>
-        &nbsp;&nbsp;echo $result->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($result->getData());<br>
+  
+  <code>
+      $result = Paystack::getAccountDetails(string $accountNumber, string $bankCode);
+      if ($result->hasError()) {
+        echo $result->getMessage();
+      } else {
+        var_dump ($result->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
 
   <h3 style="text-decoration: underline;">Adding transfer beneficiary</h3>
@@ -789,16 +792,16 @@ git clone https://github.com/aweklin/Paystack-PHP
     Creates a new recipient. A duplicate account number will lead to the retrieval of the existing record.
   </p>
 
-  <blockquote>
-    <code>
-      $beneficiaryCreationResult = Paystack::createBeneficiary(VALID_ACCOUNT_NUMBER, VALID_BANK_CODE_FOR_BVN_VERIFICATION, VALID_ACCOUNT_NAME);<br>
-      if ($beneficiaryCreationResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $beneficiaryCreationResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($beneficiaryCreationResult->getData());<br>
+  
+  <code>
+      $beneficiaryCreationResult = Paystack::createBeneficiary(VALID_ACCOUNT_NUMBER, VALID_BANK_CODE_FOR_BVN_VERIFICATION, VALID_ACCOUNT_NAME);
+      if ($beneficiaryCreationResult->hasError()) {
+        echo $beneficiaryCreationResult->getMessage();
+      } else {
+        var_dump ($beneficiaryCreationResult->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
 
   <h3 style="text-decoration: underline;">Updating transfer beneficiary</h3>
@@ -807,16 +810,16 @@ git clone https://github.com/aweklin/Paystack-PHP
     Updates recipient. A duplicate account number will lead to the retrieval of the existing record.
   </p>
 
-  <blockquote>
-    <code>
-      $beneficiaryUpdateResult = Paystack::updateBeneficiary(VALID_BENEFICIARY_ID, VALID_ACCOUNT_NAME, VALID_EMAIL, 'A sample test account');<br>
-      if ($beneficiaryUpdateResult->hasError()) {<br>
-        &nbsp;&nbsp;echo $beneficiaryUpdateResult->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($beneficiaryUpdateResult->getData());<br>
+  
+  <code>
+      $beneficiaryUpdateResult = Paystack::updateBeneficiary(VALID_BENEFICIARY_ID, VALID_ACCOUNT_NAME, VALID_EMAIL, 'A sample test account');
+      if ($beneficiaryUpdateResult->hasError()) {
+        echo $beneficiaryUpdateResult->getMessage();
+      } else {
+        var_dump ($beneficiaryUpdateResult->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
 
   <h3 style="text-decoration: underline;">Listing transfer beneficiaries</h3>
@@ -825,16 +828,16 @@ git clone https://github.com/aweklin/Paystack-PHP
     Returns all beneficiaries created from inception till date.
   </p>
 
-  <blockquote>
-    <code>
-      $beneficiaries = Paystack::getBeneficiaries();<br>
-      if ($beneficiaries->hasError()) {<br>
-        &nbsp;&nbsp;echo $beneficiaries->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($beneficiaries->getData());<br>
+  
+  <code>
+      $beneficiaries = Paystack::getBeneficiaries();
+      if ($beneficiaries->hasError()) {
+        echo $beneficiaries->getMessage();
+      } else {
+        var_dump ($beneficiaries->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
 
   <h3 style="text-decoration: underline;">Listing transfer beneficiaries created between two dates</h3>
@@ -843,30 +846,30 @@ git clone https://github.com/aweklin/Paystack-PHP
     Returns all beneficiaries created between two dates.
   </p>
 
-  <blockquote>
-    <code>
-      $beneficiaries = Paystack::getBeneficiariesByDates($startDate, $endDate);<br>
-      if ($beneficiaries->hasError()) {<br>
-        &nbsp;&nbsp;echo $beneficiaries->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($beneficiaries->getData());<br>
+  
+  <code>
+      $beneficiaries = Paystack::getBeneficiariesByDates($startDate, $endDate);
+      if ($beneficiaries->hasError()) {
+        echo $beneficiaries->getMessage();
+      } else {
+        var_dump ($beneficiaries->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
   
   <h3 style="text-decoration: underline;">Get details of a beneficiary.</h3>
   
-  <blockquote>
-    <code>
-      $beneficiaryDetails = Paystack::getBeneficiary(VALID_BENEFICIARY_ID);<br>
-      if ($beneficiaryDetails->hasError()) {<br>
-        &nbsp;&nbsp;echo $beneficiaryDetails->getMessage();<br>
-      } else {<br>
-        &nbsp;&nbsp;var_dump($beneficiaryDetails->getData());<br>
+  
+  <code>
+      $beneficiaryDetails = Paystack::getBeneficiary(VALID_BENEFICIARY_ID);
+      if ($beneficiaryDetails->hasError()) {
+        echo $beneficiaryDetails->getMessage();
+      } else {
+        var_dump ($beneficiaryDetails->getData());
       }
     </code>
-  </blockquote>
+  
   <p>&nbsp;</p>
 
 </div>
