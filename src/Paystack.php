@@ -596,6 +596,28 @@ final class Paystack {
     }
 
     /**
+     * Initiates a bulk transfer request.
+     * 
+     * You need to disable the Transfers OTP requirement to use this endpoint.
+     * 
+     * @param array $transfers An array of `\Aweklin\Paystack\Models\PaymentTransfer`, each containing: amount, recipient, and reference.
+     * @param string $currency Three-letter ISO currency.
+     * 
+     * @return IResponse
+     */
+    public static function initiateBulkTransfers(array $transfers, string $currency = 'NGN') {
+        try {
+            $transfer = new Transfer();
+            $transferResult = $transfer->initiateBulk($transfers, $currency);
+            unset($transfer);
+
+            return $transferResult;
+        } catch (\Exception $e) {
+            return new Response(true, $e->getMessage());
+        }
+    }
+
+    /**
      * Finalizes an initiated transfer with OTP.
      * 
      * @param string $transferCode Transaction code for recipient.

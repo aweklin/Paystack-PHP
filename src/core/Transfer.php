@@ -112,7 +112,6 @@ class Transfer extends Filterable {
      * You need to disable the Transfers OTP requirement to use this endpoint.
      * 
      * @param array $transfers An array of `\Aweklin\Paystack\Models\PaymentTransfer`, each containing: amount, recipient, and reference.
-     * @param float $amount Amount to be transferred.
      * @param string $currency Three-letter ISO currency.
      * 
      * @return IResponse
