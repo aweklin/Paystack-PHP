@@ -5,14 +5,14 @@ include_once realpath('.' . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR 
 
 use Aweklin\Paystack\Paystack;
 use Aweklin\Paystack\Core\Transaction;
-use Aweklin\Paystack\Models\{MobileMoneyPayment, BankPayment, USSDPayment, QRCodePayment, RecurringPayment, TransactionParameter};
+use Aweklin\Paystack\Models\{MobileMoneyPayment, BankPayment, USSDPayment, QRCodePayment, RecurringPayment, TransactionParameter, DefaultPayment};
 
 use PHPUnit\Framework\TestCase;
 
 class TransactionTest extends TestCase {
 
     public function setUp() : void {
-        Paystack::initialize(TEST_API_SECRETE_KEY);
+        Paystack::initialize(TEST_API_SECRET_KEY);
     }
 
     function testFailForEmptyApiKey() {
@@ -141,5 +141,31 @@ class TransactionTest extends TestCase {
         } else {
             $this->assertFalse(false);
         }
+    }  
+
+    public function testDefaultPaymentWithSingleArgumentSuccessful() {
+        $payment = new DefaultPayment(VALID_EMAIL, VALID_AMOUNT);
+        $result = Paystack::initiateTransaction($payment);
+        $this->assertEquals('Authorization URL created', $result->getMessage());
+    }
+
+    public function testDefaultPaymentWithDoubleArgumentsSuccessful() {
+        $result = Paystack::initiateTransaction(VALID_EMAIL, VALID_AMOUNT);
+        $this->assertEquals('Authorization URL created', $result->getMessage());
+    }
+
+    public function testDefaultPaymentWith3ArgumentsSuccessful() {
+        $result = Paystack::initiateTransaction(VALID_EMAIL, VALID_AMOUNT, ['name' => 'Akeem Aweda', 'profession' => 'Software Engineer']);
+        $this->assertEquals('Authorization URL created', $result->getMessage());
+    }
+
+    public function testDefaultPaymentWith4ArgumentsSuccessful() {
+        $result = Paystack::initiateTransaction(VALID_EMAIL, VALID_AMOUNT, 'abcd1234', ['name' => 'Akeem Aweda', 'profession' => 'Software Engineer']);
+        $this->assertEquals('Authorization URL created', $result->getMessage());
+    }
+
+    public function testDefaultPaymentWith5ArgumentsSuccessful() {
+        $result = Paystack::initiateTransaction(VALID_EMAIL, VALID_AMOUNT, 'abcd1234', Paystack::CURRENCY_NGN, ['name' => 'Akeem Aweda', 'profession' => 'Software Engineer']);
+        $this->assertEquals('Authorization URL created', $result->getMessage());
     }
 }

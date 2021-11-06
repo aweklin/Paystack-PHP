@@ -1,7 +1,7 @@
 <?php
 
-define('TEST_API_SECRETE_KEY', '');
-define('LIVE_API_SECRETE_KEY', '');
+define('TEST_API_SECRET_KEY', '');
+define('LIVE_API_SECRET_KEY', '');
 
 define('VALID_PAYMENT_REFERENCE', '');
 define('VALID_EMAIL', '');

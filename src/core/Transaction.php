@@ -5,9 +5,11 @@ namespace Aweklin\Paystack\Core;
 use Aweklin\Paystack\Abstracts\{IRequest, IResponse};
 use Aweklin\Paystack\ConcreteAbstract\{PaymentMethod, Filterable};
 use Aweklin\Paystack\Concrete\{Request, Response};
-use Aweklin\Paystack\Models\{MobileMoneyPayment, BankPayment, TransactionParameter, USSDPayment, QRCodePayment, RecurringPayment};
+use Aweklin\Paystack\Models\{MobileMoneyPayment, BankPayment, DefaultPayment, TransactionParameter, USSDPayment, QRCodePayment, RecurringPayment};
 use Aweklin\Paystack\Exceptions\{EmptyParameterException, EmptyValueException, ParameterExistsException};
 use Aweklin\Paystack\Infrastructures\Utility;
+use Aweklin\Paystack\Paystack;
+use InvalidArgumentException;
 
 /**
  * Contains methods to start a payment transaction from start to finish.
@@ -25,6 +27,116 @@ class Transaction extends Filterable {
     const FILTER_PARAM_AMOUNT = 'amount';
     const FILTER_PARAM_CURRENCY = 'currency';
 
+    private function _processMultipleArgumentsForPayment($args) : IResponse {
+        if (!is_string($args[0]))
+            throw new InvalidArgumentException("Email is expected as the first argument.");
+        if (!\filter_var($args[0], \FILTER_VALIDATE_EMAIL))
+            throw new InvalidArgumentException("Invalid email address.");
+        if (!is_numeric($args[1]))
+            throw new InvalidArgumentException("Amount is expected as the second argument.");
+        
+        $defaultPayment = new DefaultPayment($args[0], floatval($args[1]));
+        
+        array_shift($args); // remove email
+        array_shift($args); // remove amount
+
+        if ($args) {
+            switch(count($args)) {
+                case 1:
+                    $value = $args[0];
+                    if (is_string($value)) {
+                        if (in_array($value, [Paystack::CURRENCY_GHS, Paystack::CURRENCY_NGN, Paystack::CURRENCY_USD])) {
+                            $defaultPayment->setCurrency($value);
+                        } else {
+                            $defaultPayment->setReference($value);
+                        }
+                    }
+                    break;
+
+                case 2:
+                    $arg1 = $args[0];
+                    $arg2 = $args[1];
+                    if (is_string($arg1) && is_array($arg2)) {
+                        if (in_array($arg1, [Paystack::CURRENCY_GHS, Paystack::CURRENCY_NGN, Paystack::CURRENCY_USD])) {
+                            $defaultPayment->setCurrency($arg1);
+                        } else {
+                            $defaultPayment->setReference($arg1);
+                        }
+                        $this->_setCustomFields($defaultPayment, $arg2);
+
+                    } elseif (is_string($arg2) && is_array($arg1)) {
+                        if (in_array($arg2, [Paystack::CURRENCY_GHS, Paystack::CURRENCY_NGN, Paystack::CURRENCY_USD])) {
+                            $defaultPayment->setCurrency($arg2);
+                        } else {
+                            $defaultPayment->setReference($arg2);
+                        }
+                        $this->_setCustomFields($defaultPayment, $arg1);
+                    }
+                    break;
+
+                case 3: // must follow the order reference: string, currency: string, custom_fields: array
+                    $defaultPayment->setReference($args[0]);
+                    $defaultPayment->setCurrency($args[1]);
+                    if (!is_array($args[2]))
+                        throw new InvalidArgumentException("The 3rd argument must be an array");
+
+                    $this->_setCustomFields($defaultPayment, $args[2]);
+                    break;
+                    
+            }
+        }
+
+        /*if (isset($args[2]) && is_array($args[2])) {// custom fields
+            foreach($args[2] as $field => $value) {
+                if (!is_object($value) && !is_array($value)) {
+                    $defaultPayment->addCustomField($field, $value);
+                }
+            }
+        } else {
+            if (isset($args[2]) && is_string($args[2])) { // reference
+                $defaultPayment->setReference($args[2]);
+            }
+        }*/
+        
+        return $this->_initialize($defaultPayment);
+    }
+
+    private function _setCustomFields(PaymentMethod &$paymentMethod, array $data) {
+        foreach($data as $field => $value) {
+            if (!is_object($value) && !is_array($value)) {
+                $paymentMethod->addCustomField($field, $value);
+            }
+        }
+    }
+
+    public function __call($name, $arguments) {
+        if ($name == 'initiate') {
+            $argumentDescription = "A single argument passed must be of type PaymentMethod, otherwise, pass 2 arguments with string and float, where the first argument represents the email and the second argument represents the amount to pay.";
+            
+            switch(count($arguments)) {
+                case 1:
+                    try {
+                        $arguments = $arguments[0];
+                        if (isset($arguments[0]) && !isset($arguments[1])) {    // PaymentMethod instance passed                            
+                            return $this->_initialize($arguments[0]);
+                        }
+                        
+                        // email and amount passed [& possibly, 3rd param as array of custom fields]
+                        return $this->_processMultipleArgumentsForPayment($arguments);
+                    } catch (\Throwable $th) {
+                        //echo PHP_EOL . "Error: " . $th->getMessage() . " on line " . $th->getLine();
+                        throw new InvalidArgumentException($argumentDescription);
+                    }
+
+                case 2:
+                    return $this->_processMultipleArgumentsForPayment($arguments); 
+
+                default:
+                    throw new InvalidArgumentException("Unsupported number of arguments. Please pass only one or two arguments. {$argumentDescription}");
+            }
+        }
+    }
+
     /**
      * Initiates a transaction based on the payment method model specified.
      * 
@@ -32,10 +144,11 @@ class Transaction extends Filterable {
      * 
      * @return IResponse
      */
-    public function initiate(PaymentMethod $paymentMethod) : IResponse {
+    private function _initialize(PaymentMethod $paymentMethod) : IResponse {
         try {
             if (!$paymentMethod)
                 return new Response(true, 'Payment method information is required.');
+                
             
             $validationResult = $paymentMethod->validate();
             if ($validationResult->hasError())
@@ -45,9 +158,14 @@ class Transaction extends Filterable {
                 'amount' => $paymentMethod->getAmount(),
                 'email' => $paymentMethod->getEmail()
             ];
-
-            if ($paymentMethod instanceof MobileMoneyPayment) {
+            if (!Utility::isEmpty($paymentMethod->getReference())) {
+                $body['ref'] = $paymentMethod->getReference();
+            }
+            if (!Utility::isEmpty($paymentMethod->getCurrency())) {
                 $body['currency'] = $paymentMethod->getCurrency();
+            }
+            
+            if ($paymentMethod instanceof MobileMoneyPayment) {
                 $body['mobile_money'] = [
                     'phone' => $paymentMethod->getPhone(),
                     'provider' => $paymentMethod->getProvider()
@@ -84,8 +202,9 @@ class Transaction extends Filterable {
                     'custom_fields' => [$customFields]
                 ];
             }
-
-            return Request::getInstance()->execute(IRequest::TYPE_POST, 'charge', $body);
+            
+            $endpoint = ($paymentMethod instanceof DefaultPayment ? 'transaction/initialize' : 'charge');
+            return Request::getInstance()->execute(IRequest::TYPE_POST, $endpoint, $body);
 
         } catch (EmptyParameterException $e) {
             return new Response(true, $e->getMessage());

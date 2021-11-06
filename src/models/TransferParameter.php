@@ -14,7 +14,7 @@ class TransferParameter extends SearchParameter {
 
     private $_customerId;
 
-    public function setCustomerId(int $customerId) : TransactionParameter {
+    public function setCustomerId(int $customerId) : TransferParameter {
         if ($customerId < 1)
             throw new EmptyValueException("Customer Id");
 

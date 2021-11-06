@@ -47,8 +47,8 @@ class SearchParameter {
         if (!Utility::isEmpty($this->_endDate))
             $parameters[Transaction::FILTER_PARAM_END_DATE] = $this->_endDate;
 
-        if (empty($parameters))
-            throw new \Exception("One or more parameters is required.");
+        // if (empty($parameters))
+        //     throw new \Exception("One or more parameters is required.");
         
         return $parameters;
     }

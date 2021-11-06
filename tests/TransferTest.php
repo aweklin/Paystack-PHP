@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 class TransferTest extends TestCase {
 
     function setUp() : void {
-        Paystack::initialize(TEST_API_SECRETE_KEY);
+        Paystack::initialize(TEST_API_SECRET_KEY);
     }
 
     function testSingleTransferToBeneficiaryFailForInvalidBeneficiaryId() {

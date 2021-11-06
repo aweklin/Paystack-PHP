@@ -15,11 +15,34 @@ abstract class PaymentMethod {
     
     private $_amount;
     private $_email;
+    private $_currency;
+    private $_reference;
     private $_customFields;
     
     public function __construct(string $email, float $amount) {
         $this->_email = $email;
-        $this->_amount = $amount * 100; // takes care of kobo
+        $this->_amount = $amount * 100; // takes care of kobo if currency is NGN, pesewas, if currency is GHS, and cents, if currency is ZAR
+    }
+
+    private function _setCurrency(string $currency) : void {
+        if (Utility::isEmpty($currency))
+            throw new EmptyValueException('Currency');
+        if (\mb_strlen($currency) != 3)
+            throw new \OutOfRangeException("Currency must be a 3 character letters.");
+        if (Utility::containsNumber($currency))
+            throw new \InvalidArgumentException("Currency cannot contain a number.");
+        if (!Utility::isAlphabetOnly($currency))
+            throw new \InvalidArgumentException("Currency is expected to be only alphabet.");
+
+        $this->_currency = $currency;
+    }
+
+    public function setCurrency(string $currency) {
+        $this->_setCurrency($currency);
+    }
+
+    public function setReference(string $reference) {
+        $this->_reference = $reference;
     }
 
     public function getAmount() : float {
@@ -36,6 +59,20 @@ abstract class PaymentMethod {
         return Utility::parseString($this->_email);
     }
 
+    public function getCurrency() : string {
+        if (Utility::isEmpty($this->_currency))
+            return '';
+
+        return Utility::parseString($this->_currency);
+    }
+
+    public function getReference() : string {
+        if (Utility::isEmpty($this->_reference))
+            return '';
+
+        return Utility::parseString($this->_reference);
+    }
+
     public function addCustomField(string $field, string $value) : PaymentMethod {
         if (!$this->_customFields)
             $this->_customFields = [];
@@ -44,7 +81,7 @@ abstract class PaymentMethod {
             throw new EmptyParameterException();
         if (Utility::isEmpty($value))
             throw new EmptyValueException($field);
-        if (\array_key_exists($field))
+        if (\array_key_exists($field, $this->_customFields))
             throw new ParameterExistsException($field);
 
         array_push($this->_customFields, [$field => $value]);

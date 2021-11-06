@@ -7,6 +7,7 @@ use Aweklin\Paystack\ConcreteAbstract\{PaymentMethod, SearchParameter};
 use Aweklin\Paystack\Concrete\{Request, Response};
 use Aweklin\Paystack\Core\{Transaction, DataProvider, Refund, Transfer, Beneficiary};
 use Aweklin\Paystack\Models\{RecurringPayment, PaymentTransfer, TransactionParameter, RefundParameter};
+use InvalidArgumentException;
 
 /**
  * Encapsulates all the Paystack operations implemented in this SDK.
@@ -29,14 +30,14 @@ final class Paystack {
     const CURRENCY_USD = 'USD';
 
     /**
-     * Specifies the secrete key to use to make requests to Paystack server.
+     * Specifies the secret key to use to make requests to Paystack server.
      */
     private static $_apiKey;
 
     /**
-     * Initializes the Paystack SDK with the given API (secrete) key.
+     * Initializes the Paystack SDK with the given API (secret) key.
      * 
-     * @param string $apiKey A string value, representing the API (secrete) key from your Paystack dashboard or settings page.
+     * @param string $apiKey A string value, representing the API (secret) key from your Paystack dashboard or settings page.
      * 
      * @return void
      */
@@ -49,18 +50,26 @@ final class Paystack {
             ->enableTelemetry($enableTelemetry);
     }
 
+    public static function __callStatic($name, $arguments) {
+        if ($name == 'initiateTransaction') {
+            if (!$arguments) 
+                throw new InvalidArgumentException("Please pass only one or two arguments. A single argument passed must be of type PaymentMethod, otherwise, pass 2 arguments with string and float, where the first argument represents the email and the second argument represents the amount to pay.");
+            return self::_initiateTransaction($arguments);
+        }
+    }
+
     //============================== TRANSACTIONS =========================
 
     /**
      * Initiates a transaction based on the payment method model specified.
      * 
-     * @param PaymentMethod $paymentMethod A model class that inherits from the PaymentMethod base class.
+     * @param mixed $arguments A model class that inherits from the PaymentMethod base class or a string (email) and float (amount).
      * 
      * @return IResponse
      */
-    public static function initiateTransaction(PaymentMethod $paymentMethod) : IResponse {
+    private static function _initiateTransaction($arguments) : IResponse {
         $transaction = new Transaction();
-        $result = $transaction->initiate($paymentMethod);
+        $result = $transaction->initiate($arguments);
         unset($transaction);
 
         return $result;

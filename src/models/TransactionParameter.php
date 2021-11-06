@@ -22,7 +22,7 @@ class TransactionParameter extends SearchParameter {
             throw new EmptyValueException("Status");
 
         $this->_status = Utility::parseString($status);
-
+        //echo "Status: {$status}";
         return $this;
     }
 
@@ -57,14 +57,14 @@ class TransactionParameter extends SearchParameter {
 
     public function get() : array {
         $parameters = parent::get();
-
+        
         if (!Utility::isEmpty($this->_status))
             $parameters[Transaction::FILTER_PARAM_STATUS] = $this->_status;
         if (!Utility::isEmpty($this->_customerId))
             $parameters[Transaction::FILTER_PARAM_CUSTOMER_ID] = $this->_customerId;
         if (!Utility::isEmpty($this->_amount))
             $parameters[Transaction::FILTER_PARAM_AMOUNT] = $this->_amount;
-
+        
         if (empty($parameters))
             throw new \Exception("One or more parameters is required.");
         

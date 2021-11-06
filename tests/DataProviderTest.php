@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class DataProviderTest extends TestCase {
 
     public function setUp() : void {
-        Paystack::initialize(TEST_API_SECRETE_KEY);
+        Paystack::initialize(TEST_API_SECRET_KEY);
     }
 
     public function testBalanceSuccessful() {

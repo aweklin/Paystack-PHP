@@ -94,7 +94,7 @@ abstract class Filterable {
             }
 
             $this->normalizePagingParams($pageNumber, $pageSize);
-
+            //echo 'Query params: ' . $queryParams;
             return $this->search($pageNumber, $pageSize, $queryParams);
         } catch (EmptyValueException $e) {
             return new Response(true, $e->getMessage());

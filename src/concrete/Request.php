@@ -15,7 +15,7 @@ use Aweklin\Paystack\Infrastructures\{Utility, Logger};
 class Request implements IRequest {
 
     /**
-     * Specifies the secrete key to use to make requests to Paystack server.
+     * Specifies the secret key to use to make requests to Paystack server.
      */
     private $_apiKey;
 
@@ -56,7 +56,7 @@ class Request implements IRequest {
     /**
      * Sets the API key to be used for all requests. This method is expected to be called once and inside the `Paystack::initialize($apiKey)` method.
      * 
-     * @param string $apiKey A string value, representing the API (secrete) key from your Paystack dashboard or settings page.
+     * @param string $apiKey A string value, representing the API (secret) key from your Paystack dashboard or settings page.
      * 
      * @return Request
      */
@@ -131,6 +131,8 @@ class Request implements IRequest {
             // clean up
             if (Utility::contains($endpoint, PAYSTACK_BASE_URL))
                 \str_replace(PAYSTACK_BASE_URL, '', $endpoint);
+
+            $this->_log($url, $requestBody, "Call to {$url}");
 
             // make network call
 			$networkRequest = $this->_makeNetworkRequest($type, $url, $body);
@@ -272,6 +274,7 @@ class Request implements IRequest {
      * @return mixed
      */
     private function _makeNetworkRequest(string $type, string $url, array $body = []) {
+        //echo "Making request to {$url} with type {$type}";
         $curlHandler = curl_init();
         curl_setopt($curlHandler, CURLOPT_URL, $url);
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);

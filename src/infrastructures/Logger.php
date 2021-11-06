@@ -44,7 +44,7 @@ final class Logger implements ILogger {
                     }
                 }
                 $fileName = $filePath . DS . $todayFormatted . '.log';
-
+                echo "Log path: {$fileName}";
                 $handle = @\fopen($fileName, 'a');
                 \fwrite($handle, $logContent);
                 \fclose($handle);

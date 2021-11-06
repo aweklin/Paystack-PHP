@@ -17,7 +17,7 @@ class RefundParameter extends SearchParameter {
     private $_amount;    
     private $_currency;
 
-    public function setCurrency(string $currency) : TransactionParameter {
+    public function setCurrency(string $currency) : RefundParameter {
         if (Utility::isEmpty($currency))
             throw new EmptyValueException("Currency");
         if (\mb_strlen($currency) != 3)
