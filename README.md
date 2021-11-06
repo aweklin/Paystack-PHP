@@ -45,7 +45,7 @@
 
 ## About ##
 
-A clean, simple, yet, comprehensive Paystack API wrapper for seamlessly managing your online transactions, transfers, and refunds with ease in PHP!
+A clean, simple, yet, comprehensive Paystack Library for seamlessly managing your online transactions, transfers, and refunds with ease in PHP!
 
 This library adopts best programming practices to provide an easy way to carry out any form of transaction available on the Paystack API.
 
@@ -96,7 +96,7 @@ git clone https://github.com/aweklin/Paystack-PHP
   </code>
     
   <p>
-    Next, initialize the API with your secret key
+    Next, initialize the Library with your secret key
   </p>
   <code>
     Paystack::initialize('your_api_secret_key_here');
