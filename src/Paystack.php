@@ -516,7 +516,7 @@ final class Paystack {
      * 
      * @return IResponse
      */
-    public static function getBeneficiary(int $id) : IResponse {
+    public static function getBeneficiary(string $id) : IResponse {
         try {
             $beneficiary = new Beneficiary();
             $beneficiaryDetails = $beneficiary->get($id);

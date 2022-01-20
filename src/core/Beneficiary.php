@@ -115,6 +115,7 @@ class Beneficiary extends Filterable {
 
             // process
             $body = [
+                'id_or_code' => $id,
                 'name' => $name,
                 'email' => $email               
             ];
@@ -122,7 +123,7 @@ class Beneficiary extends Filterable {
             if (!Utility::isEmpty($description))
                 $body['description'] = $description;
 
-            return Request::getInstance()->execute(IRequest::TYPE_POST, "transferrecipient/{$id}", $body);
+            return Request::getInstance()->execute(IRequest::TYPE_PUT, "transferrecipient/{$id}", $body);
         } catch (\Exception $e) {
             return new Response(true, $e->getMessage());
         }

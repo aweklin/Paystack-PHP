@@ -37,7 +37,7 @@ class Request implements IRequest {
      * Creates and returns a new instance of the Request object.
      */
     private function __construct() {
-        $this->_validRequestTypes = [IRequest::TYPE_GET, IRequest::TYPE_POST];
+        $this->_validRequestTypes = [IRequest::TYPE_GET, IRequest::TYPE_POST, IRequest::TYPE_PUT, IRequest::TYPE_DELETE];
     }
 
     /**
@@ -116,13 +116,13 @@ class Request implements IRequest {
         // validations
         $validationResult = $this->_validate($type, $endpoint, $body);
         if ($validationResult->hasError()) {
-            $this->_log($url, $requestBody, $validationResult->getMessage());
+            $this->_log($type . ' - ' . $url, $requestBody, $validationResult->getMessage());
             return $validationResult;
         }
 
         if (!Utility::hasInternetAccess()) {
             $message = 'Unable to establish internet connection!';
-            $this->_log($url, $requestBody, $message);
+            $this->_log($type . ' - ' . $url, $requestBody, $message);
             return new Response(true, $message);
         }
 
@@ -132,7 +132,7 @@ class Request implements IRequest {
             if (Utility::contains($endpoint, PAYSTACK_BASE_URL))
                 \str_replace(PAYSTACK_BASE_URL, '', $endpoint);
 
-            $this->_log($url, $requestBody, "Call to {$url}");
+            $this->_log($type . ' - ' . $url, $requestBody, "Call to {$url}");
 
             // make network call
 			$networkRequest = $this->_makeNetworkRequest($type, $url, $body);
@@ -169,11 +169,11 @@ class Request implements IRequest {
 
             
             $responseData = (isset($networkCallResult) && $networkCallResult ? \json_encode($networkCallResult, JSON_PRETTY_PRINT) : '');
-            $this->_log($url, $requestBody, $responseData);
+            $this->_log($type . ' - ' . $url, $requestBody, $responseData);
 		} catch (\Exception $e) {
             $message = $e->getMessage();
             
-            $this->_log($url, $requestBody, $message);
+            $this->_log($type . ' - ' . $url, $requestBody, $message);
         }
 
         return new Response($hasError, $message, $data);

@@ -20,6 +20,16 @@ interface IRequest {
     const TYPE_POST = 'post';
 
     /**
+     * Indicates a PUT request method
+     */
+    const TYPE_PUT = 'put';
+
+    /**
+     * Indicates a DELETE request method
+     */
+    const TYPE_DELETE = 'delete';
+
+    /**
      * Executes the given request on Paystack server and returns a value, indicating the status, message and data gotten from the request.
      * 
      * @param string $type Indicates if the request is a get or post. Please use the constant value in IRequest::TYPE_... 
