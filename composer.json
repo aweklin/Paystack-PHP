@@ -1,24 +1,37 @@
 {
-    "name": "Aweklin/Paystack",
-    "description": "A clean, simple, yet, comprehensive Paystack API wrapper for seamlessly managing your online transactions, transfers, and refunds with ease in PHP!",
-    "keywords": ["Paystack", "Payment Gateway", "Aweklin"],
-    "type": "library",
-    "authors": [
-        {
-            "name": "Akeem Aweda",
-            "email": "akeem@aweklin.com"
-        }
-    ],
-    "require": {
-        "php": ">=7.2"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4.0"
-    },
-    "autoload": {
-        "psr-4": { "Aweklin\\Paystack\\": "src/" }
-    },
-    "minimum-stability": "stable",
-    "license": "MIT",
-    "version": "0.1"
+  "name": "Aweklin/Paystack",
+  "description": "A clean, simple, yet, comprehensive Paystack API wrapper for seamlessly managing your online transactions, transfers, and refunds with ease in PHP!",
+  "keywords": [
+    "Paystack",
+    "Payment Gateway",
+    "Aweklin"
+  ],
+  "type": "library",
+  "authors": [
+    {
+      "name": "Akeem Aweda",
+      "email": "akeem@aweklin.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "support": {
+    "issues": "https://github.com/aweklin/Paystack-PHP/issues",
+    "source": "https://github.com/aweklin/Paystack-PHP"
+  },
+  "autoload": {
+    "psr-4": {
+      "Aweklin\\Paystack\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    :"classmap": ["tests"]
+  },
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "version": "0.1"
 }
