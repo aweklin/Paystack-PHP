@@ -58,7 +58,7 @@ This library adopts best programming practices to provide an easy way to carry o
 To install using composer, invoke the command below:
 
 ```
-composer install aweklin/Paystack-PHP
+composer require aweklin/paystack
 ```
 
 You can also clone this repository using the command below:
@@ -166,7 +166,6 @@ git clone https://github.com/aweklin/Paystack-PHP
       }
 
   </code>
-
 
   <p>Or, specify page number and page size</p>
   
@@ -325,7 +324,6 @@ git clone https://github.com/aweklin/Paystack-PHP
 
   </code>
 
-
   <p>&nbsp;</p>
   <h3>Initiating bank payment</h3>
   <p>
@@ -344,7 +342,6 @@ git clone https://github.com/aweklin/Paystack-PHP
     }
 
   </code>
-
 
   <p>&nbsp;</p>
   <h3>Initiating USSD payment</h3>
@@ -369,7 +366,6 @@ git clone https://github.com/aweklin/Paystack-PHP
     }
 
   </code>
-
 
   <p>&nbsp;</p>
   
@@ -417,7 +413,6 @@ git clone https://github.com/aweklin/Paystack-PHP
 
   </code>
 
-
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Completing transaction with OTP</h3>
   <p>Concludes a payment process initiated via bank payment method.</p>
@@ -433,7 +428,6 @@ git clone https://github.com/aweklin/Paystack-PHP
     }
 
   </code>
-
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Transaction verification</h3>
@@ -501,7 +495,6 @@ git clone https://github.com/aweklin/Paystack-PHP
     }
   </code>
 
-
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Listing your refunds by date range</h3>
   <p></p>
@@ -515,7 +508,6 @@ git clone https://github.com/aweklin/Paystack-PHP
       var_dump ($refundList->getData());
     }
   </code>
-
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Listing your refunds by other parameters</h3>
@@ -594,7 +586,6 @@ git clone https://github.com/aweklin/Paystack-PHP
     }
   </code>
 
-
   <p>
     * @param string $accountNumber Receiver's account number.
     <br>* @param string $accountName Receiver's account name.
@@ -629,7 +620,6 @@ git clone https://github.com/aweklin/Paystack-PHP
 
   </code>
 
-
   <p>&nbsp;</p>
   <p>
     <strong>$transfers is an array of <code>\Aweklin\Paystack\Models\PaymentTransfer`</code>, each containing: amount, recipient, and reference.</strong>
@@ -654,7 +644,6 @@ git clone https://github.com/aweklin/Paystack-PHP
 
   </code>
 
-
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Resend transfer OTP</h3>
   <p>
@@ -672,7 +661,6 @@ git clone https://github.com/aweklin/Paystack-PHP
       var_dump ($transferResult->getData());
     }
   </code>
-
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Disable transfer OTP</h3>
@@ -754,7 +742,6 @@ git clone https://github.com/aweklin/Paystack-PHP
     }
   </code>
 
-
   <p>&nbsp;</p>
   
   <h3 style="text-decoration: underline;">Listing your transfers by date range</h3>
@@ -769,7 +756,6 @@ git clone https://github.com/aweklin/Paystack-PHP
       var_dump ($transferList->getData());
     }
   </code>
-
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Get details of a transfer</h3>
