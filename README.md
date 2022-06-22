@@ -1,7 +1,7 @@
 <div align="center" id="top"> 
   <!-- <img src="./.github/app.gif" alt="Paystack-PHP" /> -->
 
-  &#xa0;
+&#xa0;
 
   <!-- <a href="https://paystack.netlify.app">Demo</a> -->
 </div>
@@ -26,9 +26,9 @@
 
 <!-- Status -->
 
-<!-- <h4 align="center"> 
+<!-- <h4 align="center">
 	🚧  Paystack 🚀 Under construction...  🚧
-</h4> 
+</h4>
 
 <hr> -->
 
@@ -43,24 +43,26 @@
 
 <br>
 
-## About ##
+## About
 
 A clean, simple, yet, comprehensive Paystack Library for seamlessly managing your online transactions, transfers, and refunds with ease in PHP!
 
 This library adopts best programming practices to provide an easy way to carry out any form of transaction available on the Paystack API.
 
-## Requirements ##
+## Requirements
 
-* Minimum of PHP 7.2
+- Minimum of PHP 7.2
 
-## Installation ##
+## Installation
 
-<!-- To install using composer, invoke the command below:
+To install using composer, invoke the command below:
+
 ```
 composer install aweklin/Paystack-PHP
-``` -->
+```
 
 You can also clone this repository using the command below:
+
 ```
 git clone https://github.com/aweklin/Paystack-PHP
 ```
@@ -72,7 +74,6 @@ git clone https://github.com/aweklin/Paystack-PHP
 - [Refunds](#refunds)
 - [Transfers](#transfers)
 - [Misc](#others)
-
 
 <div id="initializingTheLibrary">
   <h1>Initializing the Library</h1>
@@ -131,7 +132,7 @@ git clone https://github.com/aweklin/Paystack-PHP
     if ($transactionList->hasError()) {
       echo $transactionList->getMessage();
     } else {
-      var_dump ($transactionList->getData());        
+      var_dump ($transactionList->getData());
     }
 
   </code>
@@ -139,7 +140,6 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>Or, specify the page number and page size</p>
 
-  
   <code>
       
       $transactionList = Paystack::getTransactions($pageNumber, $pageSize);
@@ -158,14 +158,15 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <code>
 
-      $transactionList = Paystack::getTransactions($status);      
+      $transactionList = Paystack::getTransactions($status);
       if ($transactionList->hasError()) {
         echo $transactionList->getMessage();
       } else {
         var_dump ($transactionList->getData());
       }
+
   </code>
-  
+
 
   <p>Or, specify page number and page size</p>
   
@@ -179,6 +180,7 @@ git clone https://github.com/aweklin/Paystack-PHP
       } else {
         var_dump ($transactionList->getData());
       }
+
   </code>
   
  
@@ -198,6 +200,7 @@ git clone https://github.com/aweklin/Paystack-PHP
       } else {
         var_dump ($transactionList->getData());
       }
+
   </code>
   
   
@@ -319,8 +322,9 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($chargeResult->getData());
     }
+
   </code>
-  
+
 
   <p>&nbsp;</p>
   <h3>Initiating bank payment</h3>
@@ -338,8 +342,9 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($chargeResult->getData());
     }
+
   </code>
-  
+
 
   <p>&nbsp;</p>
   <h3>Initiating USSD payment</h3>
@@ -362,8 +367,9 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($chargeResult->getData());
     }
+
   </code>
-  
+
 
   <p>&nbsp;</p>
   
@@ -386,9 +392,9 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($chargeResult->getData());
     }
+
   </code>
 
-  
   <p>&nbsp;</p>
   <h3>Initiating a recurring payment</h3>
   <p>
@@ -408,8 +414,9 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($chargeResult->getData());
     }
+
   </code>
-  
+
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Completing transaction with OTP</h3>
@@ -424,8 +431,9 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($chargeResult->getData());
     }
+
   </code>
-  
+
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Transaction verification</h3>
@@ -440,6 +448,7 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($verificationResult->getData());
     }
+
   </code>
   
   <p>&nbsp;</p>
@@ -460,8 +469,8 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($refundResult->getData());
     }
-  </code>
 
+  </code>
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Checking refund status</h3>
@@ -475,8 +484,8 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($refundCheck->getData());
     }
-  </code>
 
+  </code>
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Listing your refunds</h3>
@@ -491,7 +500,7 @@ git clone https://github.com/aweklin/Paystack-PHP
       var_dump ($refundList->getData());
     }
   </code>
-  
+
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Listing your refunds by date range</h3>
@@ -506,7 +515,7 @@ git clone https://github.com/aweklin/Paystack-PHP
       var_dump ($refundList->getData());
     }
   </code>
-  
+
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Listing your refunds by other parameters</h3>
@@ -536,6 +545,7 @@ git clone https://github.com/aweklin/Paystack-PHP
     Initiates a single transfer request to a beneficiary.
 
     Status of transfer object returned will be pending if OTP is disabled. In the event that an OTP is required, status will read otp.
+
   </p>
 
   <p>Please note that the beneficiary must have been previously added to your beneficiary list, please refer to Misc section.</p>
@@ -569,6 +579,7 @@ git clone https://github.com/aweklin/Paystack-PHP
     Note that this method will have to validate the account number, create the beneficiary, then transfer to the beneficiary.
 
     Status of transfer object returned will be pending if OTP is disabled. In the event that an OTP is required, status will read otp.
+
   </p>
 
   <p>Example</p>
@@ -582,7 +593,7 @@ git clone https://github.com/aweklin/Paystack-PHP
       var_dump ($transferResult->getData());
     }
   </code>
-  
+
 
   <p>
     * @param string $accountNumber Receiver's account number.
@@ -602,6 +613,7 @@ git clone https://github.com/aweklin/Paystack-PHP
     Initiates a bulk transfer request.
 
     You need to disable the Transfers OTP requirement to use this endpoint.
+
   </p>
 
   <p>Example</p>
@@ -614,8 +626,9 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($transferResult->getData());
     }
+
   </code>
-  
+
 
   <p>&nbsp;</p>
   <p>
@@ -638,8 +651,9 @@ git clone https://github.com/aweklin/Paystack-PHP
     } else {
       var_dump ($transferResult->getData());
     }
+
   </code>
-  
+
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Resend transfer OTP</h3>
@@ -658,7 +672,7 @@ git clone https://github.com/aweklin/Paystack-PHP
       var_dump ($transferResult->getData());
     }
   </code>
-  
+
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Disable transfer OTP</h3>
@@ -666,6 +680,7 @@ git clone https://github.com/aweklin/Paystack-PHP
     In the event that you want to be able to complete transfers programmatically without use of OTPs, this method helps disable that….with an OTP.
 
     Please note that this will send you an OTP and you are to call the `finalizeDisableOTP()` method to conclude operation.
+
   </p>
 
   <p>Example</p>
@@ -738,7 +753,7 @@ git clone https://github.com/aweklin/Paystack-PHP
       var_dump ($transferList->getData());
     }
   </code>
-  
+
 
   <p>&nbsp;</p>
   
@@ -754,7 +769,7 @@ git clone https://github.com/aweklin/Paystack-PHP
       var_dump ($transferList->getData());
     }
   </code>
-  
+
 
   <p>&nbsp;</p>
   <h3 style="text-decoration: underline;">Get details of a transfer</h3>
@@ -795,7 +810,6 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>Get a list of all Nigerian banks and their properties</p>
 
-  
   <code>
     
     $result = Paystack::getBanks();
@@ -812,7 +826,6 @@ git clone https://github.com/aweklin/Paystack-PHP
 
   <p>Get a list of all providers for Dedicated NUBAN</p>
 
-  
   <code>
     
     $result = Paystack::getProviders();
@@ -829,7 +842,6 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>Validates the given Bank Verification Number, BVN against the account number and bank code provided.</p>
 
-  
   <code>
     
     $result = Paystack::verifyBVN(VALID_BVN, VALID_BANK_CODE_FOR_BVN_VERIFICATION, VALID_ACCOUNT_NUMBER);
@@ -846,7 +858,6 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>Get a customer's information by using the Bank Verification Number.</p>
 
-  
   <code>
     
     $result = Paystack::getBVNDetails($bvn);
@@ -863,7 +874,6 @@ git clone https://github.com/aweklin/Paystack-PHP
   
   <p>Confirm an account belongs to the right customer.</p>
 
-  
   <code>
     
     $result = Paystack::getAccountDetails(string $accountNumber, string $bankCode);
@@ -882,7 +892,6 @@ git clone https://github.com/aweklin/Paystack-PHP
     Creates a new recipient. A duplicate account number will lead to the retrieval of the existing record.
   </p>
 
-  
   <code>
     
     $beneficiaryCreationResult = Paystack::createBeneficiary(VALID_ACCOUNT_NUMBER, VALID_BANK_CODE_FOR_BVN_VERIFICATION, VALID_ACCOUNT_NAME);
@@ -901,7 +910,6 @@ git clone https://github.com/aweklin/Paystack-PHP
     Updates recipient. A duplicate account number will lead to the retrieval of the existing record.
   </p>
 
-  
   <code>
     
     $beneficiaryUpdateResult = Paystack::updateBeneficiary(VALID_BENEFICIARY_ID, VALID_ACCOUNT_NAME, VALID_EMAIL, 'A sample test account');
@@ -920,7 +928,6 @@ git clone https://github.com/aweklin/Paystack-PHP
     Returns all beneficiaries created from inception till date.
   </p>
 
-  
   <code>
     
     $beneficiaries = Paystack::getBeneficiaries();
@@ -939,7 +946,6 @@ git clone https://github.com/aweklin/Paystack-PHP
     Returns all beneficiaries created between two dates.
   </p>
 
-  
   <code>
     
     $beneficiaries = Paystack::getBeneficiariesByDates($startDate, $endDate);
@@ -969,22 +975,21 @@ git clone https://github.com/aweklin/Paystack-PHP
 
 </div>
 
-## Testing ##
+## Testing
 
 This project has been developed with TDD. Over 95% of the code has been unit tested and improved overtime.
 With the unit testing in place, developers using this library can equally learn how to use it simply by reading through the tests written.
 
 To run the unit tests in this project, kindly open the `config.php` file inside the `tests` folder and set the appropriate values for all the constants before running your tests. If you need some help on this, kindly contact <a href="mailto:akeem@aweklin.com" title="Send email to">akeem@aweklin.com</a>.
 
-## Contributions ##
+## Contributions
 
 This project is open to professionals to contribute & report issues for us to make it better together.
 Security issues should be reported privately, via email, to <a href="mailto:akeem@aweklin.com" title="Send email to">akeem@aweklin.com</a>.
 
-## License ##
+## License
 
 This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
-
 
 Made with :heart: by <a href="https://github.com/aweklin" target="_blank">Akeem Aweda</a>
 
