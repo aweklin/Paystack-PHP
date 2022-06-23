@@ -38,13 +38,13 @@ final class Logger implements ILogger {
                 if (\defined('APP_PAYSTACK_LOG_LOCATION')) {
                     $filePath = constant('APP_PAYSTACK_LOG_LOCATION');
                 } else {
-                    $filePath = ROOT . DS . 'src' . DS . 'logs' . DS . $this->_folder;
+                    $filePath = dirname(__FILE__, 2) . DS . 'logs' . DS . $this->_folder;
                     if (!\file_exists($filePath)) {
                         \mkdir($filePath, 0777, true);
                     }
                 }
                 $fileName = $filePath . DS . $todayFormatted . '.log';
-                echo "Log path: {$fileName}";
+                //echo "Log path: {$fileName}";
                 $handle = @\fopen($fileName, 'a');
                 \fwrite($handle, $logContent);
                 \fclose($handle);
